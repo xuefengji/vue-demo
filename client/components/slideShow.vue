@@ -10,7 +10,10 @@
     <ul class="slide-pages">
       <li ><</li>
       <li>
-        <a ></a>
+        <a class="on">1</a>
+        <a >2</a>
+        <a >3</a>
+        <a >4</a>
       </li>
       <li >&gt;</li>
     </ul>
