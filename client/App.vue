@@ -5,7 +5,7 @@
           <img src="./assets/logo.png">
         <div class="head-nav">
           <ul class="nav-list">
-            <li>登录</li>
+            <li @click="showLogFrom">登录</li>
             <li class="nav-pile">|</li>
             <li>注册</li>
             <li class="nav-pile">|</li>
@@ -23,20 +23,35 @@
     <div class="app-foot">
       <p>© 2019 fishenal MIT</p>
     </div>
+
+    <my-dialog :isShow="isShow">
+      <log-form></log-form>
+    </my-dialog>
+
+
+
+
   </div>
 </template>
 
 <script>
-import Index from './views/index'
+import myDialog from './components/base/dialog'
+import logForm from './components/logForm'
   export default {
 
     data() {
       return {
-
+        isShow: false
       }
     },
     components: {
-      Index
+      myDialog,
+      logForm
+    },
+    methods: {
+      showLogFrom () {
+        this.isShow = true;
+      }
     }
   }
 

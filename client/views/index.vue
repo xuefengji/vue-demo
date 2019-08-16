@@ -24,7 +24,7 @@
       </div>
     </div>
       <div class="index-right">
-        <slide-show></slide-show>
+        <slide-show :slides="slides" inv="3000"></slide-show>
         <div class="index-board-list" >
           <div class="index-board-item"
                v-for="(item,index) in boardList"
@@ -48,6 +48,28 @@
         name: "index",
       data () {
           return {
+            slides: [
+              {
+                src: require('../assets/slideShow/pic1.jpg'),
+                title: 'xxx1',
+                href: 'detail/analysis'
+              },
+              {
+                src: require('../assets/slideShow/pic2.jpg'),
+                title: 'xxx2',
+                href: 'detail/count'
+              },
+              {
+                src: require('../assets/slideShow/pic3.jpg'),
+                title: 'xxx3',
+                href: 'http://xxx.xxx.com'
+              },
+              {
+                src: require('../assets/slideShow/pic4.jpg'),
+                title: 'xxx4',
+                href: 'detail/forecast'
+              }
+            ],
             boardList: [
               {
                 title: '开放产品',
@@ -129,7 +151,12 @@
           }
       },
       created () {
-
+        this.$axios.get('http://localhost:8080/static/newList.json')
+          .then(res => {
+            // console.log(res.data);
+            this.newsList = res.data;
+        })
+          .catch(err => console.log(err));
       },
       components: {
         slideShow

@@ -1,29 +1,66 @@
 <template>
-  <div class="slide-show" >
+  <div class="slide-show" @mouseover="clearInv" @mouseout="runInv">
     <div class="slide-img">
-      <a href="">
-          <img src="../assets/slideShow/pic1.jpg">
+      <a :href="slides[nowIndex].href">
+          <img :src="slides[nowIndex].src">
       </a>
-
     </div>
-    <h2></h2>
+    <h2>{{slides[nowIndex].title}}</h2>
     <ul class="slide-pages">
-      <li ><</li>
-      <li>
-        <a class="on">1</a>
-        <a >2</a>
-        <a >3</a>
-        <a >4</a>
+      <li @click="goto(prevIndex)">&lt;</li>
+      <li v-for="(item,index) in slides" :key="index" @click="goto(index)">
+        <a>{{index +1}}</a>
       </li>
-      <li >&gt;</li>
+      <li @click="goto(nextIndex)">&gt;</li>
     </ul>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "slideShow"
+
+export default {
+    name: "slideShow",
+    props: ['slides','inv'],
+    data () {
+      return {
+        nowIndex: 0
+      }
+    },
+    computed: {
+      prevIndex () {
+        if (this.nowIndex === 0) {
+          return  this.slides.length - 1
+        }
+        else{
+          return  this.nowIndex - 1
+        }
+      },
+      nextIndex () {
+        if (this.nowIndex === this.slides.length - 1) {
+          return  0
+        }
+        else {
+          return  this.nowIndex + 1
+        }
+      }
+    },
+    methods: {
+      goto (index) {
+        this.nowIndex = index;
+      },
+      runInv () {
+        this.invId=setInterval(()=>{
+          this.goto(this.nextIndex);
+        },this.inv)
+      },
+      clearInv () {
+        clearInterval(this.invId);
+      }
+    },
+    mounted () {
+      this.runInv()
     }
+}
 </script>
 
 <style scoped>
